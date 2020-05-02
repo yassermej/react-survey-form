@@ -40,12 +40,37 @@ widgets.bootstrapslider(SurveyKo);
 class SurveyCreator extends Component {
   surveyCreator;
   componentDidMount() {
-    let options = { showEmbededSurveyTab: true };
+    let options = { 
+      showSurveyTitle: false,
+      showEmbededSurveyTab: false,
+      showJSONEditorTab: false,
+      questionTypes: ["text", "checkbox", "radiogroup", "dropdown","file", "boolean"]
+    };
     this.surveyCreator = new SurveyJSCreator.SurveyCreator(
       "surveyCreatorContainer",
       options
     );
     this.surveyCreator.saveSurveyFunc = this.saveMySurvey;
+    this.surveyCreator.toolbox.removeItem("nouislider");
+    this.surveyCreator.toolbox.removeItem("datepicker");
+    this.surveyCreator.toolbox.removeItem("tagbox");
+    this.surveyCreator.toolbox.removeItem("sortablelist");
+    this.surveyCreator.toolbox.removeItem("bootstrapslider");
+    this.surveyCreator.toolbox.removeItem("barrating");
+
+    console.log(this.surveyCreator.JSON)
+    let tabs = this.surveyCreator.tabs.sorted();
+    this.surveyCreator.tabs.removeAll();
+
+    // debugger
+    // tabs.forEach(tab => {
+    //   tab.title = tab.title.replace("Survey", "").trim();
+    //   console.log(tab, tab.title)
+    //   this.surveyCreator.tabs.push(tab);
+    // })
+    // debugger
+    // this.surveyCreator.tabs.push({ name: "test", tab: "se-tab-test" });
+    // this.surveyCreator.tabs.push({ name: "designer", tab: "se-tab-test" });
   }
   render() {
     return <div id="surveyCreatorContainer" />;
